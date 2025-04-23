@@ -8,7 +8,8 @@ const userSchema = new Schema<TUser>({
     },
     email: {
         type: String,
-        required: [true, "Email is required"]
+        required: [true, "Email is required"],
+        unique: [true, "This email is not available"]
     },
     password: {
         type: String,
