@@ -6,6 +6,8 @@ import sendResponse from '../../utils/sendResponse';
 
 const register = catchAsync(async (req, res) => {
   const result = await AuthServices.register(req.body);
+  console.log("result", req.headers.authorization);
+  
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
