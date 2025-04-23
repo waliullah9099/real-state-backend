@@ -1,4 +1,9 @@
 import { z } from 'zod';
+import {
+  PROPERTY_FOR,
+  PROPERTY_STATUS,
+  PROPERTY_TYPE,
+} from './property.constant';
 
 const createPropertyValidationSchema = z.object({
   title: z.string().min(1, { message: 'Property title is required!' }),
@@ -10,12 +15,8 @@ const createPropertyValidationSchema = z.object({
   thumbNailImage: z.string({
     required_error: 'Property thumbnail image is required!',
   }),
-  type: z.enum(['Apartment', 'House', 'Land'], {
-    required_error: 'Property type is required!',
-  }),
-  propertyFor: z.enum(['For Sale', 'For Rent', 'Sold', 'Rented'], {
-    required_error: 'Property status is required!',
-  }),
+  type: z.nativeEnum(PROPERTY_TYPE),
+  propertyFor: z.nativeEnum(PROPERTY_FOR),
   bedrooms: z.number({ required_error: 'Number of bedrooms is required!' }),
   bathrooms: z.number({ required_error: 'Number of bathrooms is required!' }),
   city: z.string({ required_error: 'City is required!' }),
@@ -26,7 +27,7 @@ const createPropertyValidationSchema = z.object({
   squareFoot: z.number().optional(),
   isFeatured: z.boolean().default(false),
   buildYear: z.string().optional(),
-  status: z.enum(['pending', 'approved', 'rejected']).default('pending'),
+  status: z.nativeEnum(PROPERTY_STATUS).default(PROPERTY_STATUS.PENDING),
 });
 
 const updatePropertyValidationSchema = z.object({
@@ -45,16 +46,8 @@ const updatePropertyValidationSchema = z.object({
       required_error: 'Property thumbnail image is required!',
     })
     .optional(),
-  type: z
-    .enum(['Apartment', 'House', 'Land'], {
-      required_error: 'Property type is required!',
-    })
-    .optional(),
-  propertyFor: z
-    .enum(['For Sale', 'For Rent', 'Sold', 'Rented'], {
-      required_error: 'Property status is required!',
-    })
-    .optional(),
+  type: z.nativeEnum(PROPERTY_TYPE).optional(),
+  propertyFor: z.nativeEnum(PROPERTY_FOR).optional(),
   bedrooms: z
     .number({ required_error: 'Number of bedrooms is required!' })
     .optional(),
@@ -71,7 +64,7 @@ const updatePropertyValidationSchema = z.object({
   squareFoot: z.number().optional(),
   isFeatured: z.boolean().default(false),
   buildYear: z.string().optional(),
-  status: z.enum(['pending', 'approved', 'rejected']).default('pending').optional(),
+  status: z.nativeEnum(PROPERTY_STATUS).optional(),
 });
 
 export const propertyValidationSchema = {

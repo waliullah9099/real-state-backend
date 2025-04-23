@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+import { PROPERTY_FOR, PROPERTY_STATUS, PROPERTY_TYPE } from "./property.constant";
 
 export type TProperty = {
   user: Types.ObjectId;
@@ -7,8 +8,8 @@ export type TProperty = {
   price: number;
   images?: string[];
   thumbNailImage: string;
-  type: 'Apartment' | 'House' | 'Land' | string;
-  propertyFor: 'For Sale' | 'For Rent' | 'Sold' | 'Rented';
+  type: keyof typeof PROPERTY_TYPE; 
+  propertyFor: keyof typeof PROPERTY_FOR;
   bedrooms: number;
   bathrooms: number;
   city: string;
@@ -17,5 +18,5 @@ export type TProperty = {
   squareFoot?: number;
   isFeatured?: boolean;
   buildYear?: string;
-  status?: 'pending' | 'approved' | 'rejected';
+  status?: keyof typeof PROPERTY_STATUS;
 };

@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { TProperty } from './property.interface';
+import { PROPERTY_FOR, PROPERTY_STATUS, PROPERTY_TYPE } from './property.constant';
 
 const propertySchema = new Schema<TProperty>(
   {
@@ -29,12 +30,12 @@ const propertySchema = new Schema<TProperty>(
     },
     type: {
       type: String,
-      enum: ['Apartment', 'House', 'Land'],
+      enum: Object.keys(PROPERTY_TYPE),
       required: true,
     },
     propertyFor: {
       type: String,
-      enum: ['For Sale', 'For Rent', 'Sold', 'Rented'],
+      enum: Object.keys(PROPERTY_FOR),
       required: true,
     },
     bedrooms: {
@@ -69,8 +70,9 @@ const propertySchema = new Schema<TProperty>(
     },
     status: {
       type: String,
-      enum: ['pending', 'approved', 'rejected'],
+      enum: Object.keys(PROPERTY_STATUS),
       required: true,
+      default: PROPERTY_STATUS.PENDING,
     },
   },
   {

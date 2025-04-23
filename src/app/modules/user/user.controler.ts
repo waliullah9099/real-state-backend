@@ -4,16 +4,6 @@ import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import catchAsync from '../../utils/catchAsync';
 
-const createUser = catchAsync(async (req, res) => {
-  const result = await UserServices.createUserIntoDB(req.body);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'User created succesfully',
-    data: result,
-  });
-});
 
 const getAllUsers = catchAsync(async (req, res) => {
   const result = await UserServices.getAllUsesFromDB();
@@ -69,7 +59,6 @@ const deleteUser = catchAsync(async (req, res) => {
 });
 
 export const UserController = {
-  createUser,
   getAllUsers,
   getSingleUser,
   updateUser,

@@ -1,11 +1,11 @@
+import config from '../config';
 import httpStatus from 'http-status';
 import AppError from "../errors/AppError";
 import catchAsync from "../utils/catchAsync";
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { User } from '../modules/user/user.model';
 import { NextFunction, Request, Response } from "express";
 import { USER_ROLE, USER_SATUS } from "../modules/user/user.constant";
-import config from '../config';
-import { User } from '../modules/user/user.model';
 
 
 export const auth = ( ...requiredRoles: (keyof typeof USER_ROLE)[]) => {
