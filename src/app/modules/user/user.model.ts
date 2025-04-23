@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import { TUser } from './user.interface';
 import mongoose, { Schema } from 'mongoose';
 import config from '../../config';
+import { USER_ROLE, USER_SATUS } from './user.constant';
 
 const userSchema = new Schema<TUser>(
   {
@@ -20,9 +21,7 @@ const userSchema = new Schema<TUser>(
     },
     role: {
       type: String,
-      enum: {
-        values: ['admin', 'agent', 'user'],
-      },
+      enum: Object.keys(USER_ROLE),
     },
     profileImage: {
       type: String,
@@ -30,6 +29,11 @@ const userSchema = new Schema<TUser>(
     isDeleted: {
       type: Boolean,
       default: false,
+    },
+    status: {
+      type: String,
+      enum: Object.keys(USER_SATUS),
+      default: USER_SATUS.ACTIVE,
     },
   },
   { timestamps: true },

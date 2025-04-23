@@ -32,7 +32,7 @@ const propertySchema = new Schema<TProperty>(
       enum: ['Apartment', 'House', 'Land'],
       required: true,
     },
-    status: {
+    propertyFor: {
       type: String,
       enum: ['For Sale', 'For Rent', 'Sold', 'Rented'],
       required: true,
@@ -66,6 +66,11 @@ const propertySchema = new Schema<TProperty>(
     },
     buildYear: {
       type: String,
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      required: true,
     },
   },
   {

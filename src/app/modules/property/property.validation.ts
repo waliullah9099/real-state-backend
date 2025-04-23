@@ -13,7 +13,7 @@ const createPropertyValidationSchema = z.object({
   type: z.enum(['Apartment', 'House', 'Land'], {
     required_error: 'Property type is required!',
   }),
-  status: z.enum(['For Sale', 'For Rent', 'Sold', 'Rented'], {
+  propertyFor: z.enum(['For Sale', 'For Rent', 'Sold', 'Rented'], {
     required_error: 'Property status is required!',
   }),
   bedrooms: z.number({ required_error: 'Number of bedrooms is required!' }),
@@ -26,6 +26,7 @@ const createPropertyValidationSchema = z.object({
   squareFoot: z.number().optional(),
   isFeatured: z.boolean().default(false),
   buildYear: z.string().optional(),
+  status: z.enum(['pending', 'approved', 'rejected']).default('pending'),
 });
 
 const updatePropertyValidationSchema = z.object({
@@ -49,7 +50,7 @@ const updatePropertyValidationSchema = z.object({
       required_error: 'Property type is required!',
     })
     .optional(),
-  status: z
+  propertyFor: z
     .enum(['For Sale', 'For Rent', 'Sold', 'Rented'], {
       required_error: 'Property status is required!',
     })
@@ -70,6 +71,7 @@ const updatePropertyValidationSchema = z.object({
   squareFoot: z.number().optional(),
   isFeatured: z.boolean().default(false),
   buildYear: z.string().optional(),
+  status: z.enum(['pending', 'approved', 'rejected']).default('pending').optional(),
 });
 
 export const propertyValidationSchema = {

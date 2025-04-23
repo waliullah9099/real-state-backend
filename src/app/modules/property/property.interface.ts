@@ -8,7 +8,7 @@ export type TProperty = {
   images?: string[];
   thumbNailImage: string;
   type: 'Apartment' | 'House' | 'Land' | string;
-  status: 'For Sale' | 'For Rent' | 'Sold' | 'Rented';
+  propertyFor: 'For Sale' | 'For Rent' | 'Sold' | 'Rented';
   bedrooms: number;
   bathrooms: number;
   city: string;
@@ -17,4 +17,5 @@ export type TProperty = {
   squareFoot?: number;
   isFeatured?: boolean;
   buildYear?: string;
+  status?: 'pending' | 'approved' | 'rejected';
 };
