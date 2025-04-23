@@ -3,6 +3,11 @@ import { TProperty } from './property.interface';
 
 const propertySchema = new Schema<TProperty>(
   {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'User is required!'],
+    },
     title: {
       type: String,
       required: [true, 'Property title is required!'],

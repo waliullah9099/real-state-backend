@@ -1,4 +1,7 @@
+import { Types } from "mongoose";
+
 export type TProperty = {
+  user: Types.ObjectId;
   title: string;
   description: string;
   price: number;

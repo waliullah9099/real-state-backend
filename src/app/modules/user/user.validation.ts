@@ -4,7 +4,7 @@ const createUserSchema = z.object({
     name: z.string(),
     email: z.string().email({ message: "Invalid email address" }),
     password: z.string(),
-    role: z.enum(["admin", "agent", "user"]),
+    role: z.enum(["admin", "agent", "user"]).default("user"),
     profileImage: z.string().optional(),
     isDeleted: z.boolean().default(false)
 })
