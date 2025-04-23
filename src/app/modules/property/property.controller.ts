@@ -4,7 +4,7 @@ import { propertyServices } from './property.service';
 import httpStatus from 'http-status';
 
 const createProperty = catchAsync(async (req, res) => {
-  const result = await propertyServices.createPropertyIntoDB(req.body);
+  const result = await propertyServices.createPropertyIntoDB(req.body, req.user);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
