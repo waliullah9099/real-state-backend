@@ -1,4 +1,3 @@
-import { JwtPayload } from "jsonwebtoken";
 import { TReview } from "./review.interface";
 import { Review } from "./review.model";
 import { User } from "../user/user.model";
@@ -37,7 +36,13 @@ const getAllReviews = async () => {
     return result;
 }
 const getSingleReview = async (id: string) => {
-    const result = await Review.findById(id).populate("userId").populate("propertyId");
+    const result = await Review.findById(id).populate({
+        path: "userId",
+        select: "name email",
+    }).populate({
+        path: "propertyId",
+        select: "-__v -createdAt -updatedAt -status -description -user -images -isFeatured",
+    });
     return result;
 }
 const updateReview = async (id: string, payload: Partial<TReview>) => {
