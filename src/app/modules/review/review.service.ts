@@ -1,8 +1,27 @@
+import { JwtPayload } from "jsonwebtoken";
 import { TReview } from "./review.interface";
 import { Review } from "./review.model";
+import { User } from "../user/user.model";
+import { Property } from "../property/property.model";
+import mongoose from "mongoose";
 
 
-const createReview = async (payload: TReview) => {
+const createReview = async (propertyId: string, user: any, payload: TReview) => {
+
+    // check if the user is existing
+    const existingUser = await User.findOne({email: user.email});
+    if (existingUser) {
+        payload.userId = existingUser._id;
+    }
+
+    // check if the property is existing
+    const existingProperty = await Property.findById(propertyId);
+    if (!existingProperty) {
+        throw new Error("Property not found");
+    }
+    payload.propertyId = new mongoose.Types.ObjectId(propertyId);
+
+
     const result = await Review.create(payload);
     return result;
 }
