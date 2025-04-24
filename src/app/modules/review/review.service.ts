@@ -27,7 +27,13 @@ const createReview = async (propertyId: string, user: any, payload: TReview) => 
 }
 
 const getAllReviews = async () => {
-    const result = await Review.find();
+    const result = await Review.find().populate({
+        path: "userId",
+        select: "name email",
+    }).populate({
+        path: "propertyId",
+        select: "-__v -createdAt -updatedAt -status -description -user -images -isFeatured",
+    });
     return result;
 }
 const getSingleReview = async (id: string) => {
