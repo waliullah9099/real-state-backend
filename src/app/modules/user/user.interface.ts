@@ -5,7 +5,7 @@ export type TUser = {
     name: string;
     email: string;
     password: string;
-    role: keyof typeof USER_ROLE,
+    role?: keyof typeof USER_ROLE,
     profileImage?: string,
     isDeleted: boolean,
     status: keyof typeof USER_SATUS,

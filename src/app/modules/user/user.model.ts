@@ -36,10 +36,15 @@ const userSchema = new Schema<TUser>(
       default: USER_SATUS.ACTIVE,
     },
   },
-  { timestamps: true },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  },  
 );
 
 userSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
   user.password = await bcrypt.hash(
     user?.password,
@@ -49,11 +54,9 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-userSchema.post("save", function(next) {
-  const user = this;
-  user.password = '';
-  next
-})
-
+userSchema.post('save', function (doc, next) {
+  doc.password = '';
+  next();
+});
 
 export const User = mongoose.model<TUser>('User', userSchema);

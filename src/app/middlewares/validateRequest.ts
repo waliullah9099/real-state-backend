@@ -1,39 +1,49 @@
 import { NextFunction, Request, Response } from 'express';
-import { AnyZodObject } from 'zod';
+import { AnyZodObject, ZodEffects } from 'zod';
 import catchAsync from '../utils/catchAsync';
 
-const validateRequest = (schema: AnyZodObject) => {
+export const validateRequestBody = (schema: AnyZodObject) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-
-     const parsedBody = await schema.parseAsync({
+      await schema.parseAsync({
         body: req.body,
       });
-
-      req.body = parsedBody.body;
-
       next();
-    } catch (error) {
-      next();
+    } catch (err) {
+      next(err);
     }
   };
 };
 
 
-export default validateRequest
-
-
-
-
-const validateRequest2 = (schema: AnyZodObject) => {
+export const validateRequestCookie = (schema: AnyZodObject) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     await schema.parseAsync({
       body: req.body,
       cookies: req.cookies,
     });
-
+    
     next();
   });
 };
 
-// export default validateRequest2;
+
+const validateRequest =
+(schema: AnyZodObject | ZodEffects<AnyZodObject>) =>
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      await schema.parseAsync({
+        body: req.body,
+        query: req.query,
+        params: req.params,
+        cookies: req.cookies,
+        headers: req.headers,
+      });
+      
+      return next();
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  export default validateRequest;

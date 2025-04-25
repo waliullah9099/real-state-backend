@@ -7,6 +7,13 @@ const router = express.Router();
 
 router.post(
   '/register',
+  
+
+  (req, res, next ) => {
+    console.log("log from router: ", req);
+    next()
+  } ,
+  
   validateRequest(userValidationSchema.createUserSchema),
   AuthController.register,
 );

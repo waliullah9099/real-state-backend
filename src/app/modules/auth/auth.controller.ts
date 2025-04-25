@@ -5,6 +5,8 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 
 const register = catchAsync(async (req, res) => {
+  console.log("log from controller: ", req);
+  
   const result = await AuthServices.register(req.body);
 
   sendResponse(res, {

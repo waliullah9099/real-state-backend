@@ -9,6 +9,7 @@ import jwt from 'jsonwebtoken';
 import config from '../../config';
 
 const register = async (payload: TUser): Promise<any> => {
+
   // check if user already exists
   const isUserExistis = await User.findOne({ email: payload.email });
   if (isUserExistis) {
