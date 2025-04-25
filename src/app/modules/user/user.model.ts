@@ -36,11 +36,11 @@ const userSchema = new Schema<TUser>(
       default: USER_SATUS.ACTIVE,
     },
   },
-  {
-    toJSON: {
-      virtuals: true,
-    },
-  },  
+  // {
+  //   toJSON: {
+  //     virtuals: true,
+  //   },
+  // },  
 );
 
 userSchema.pre('save', async function (next) {

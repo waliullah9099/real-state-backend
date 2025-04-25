@@ -8,8 +8,7 @@ import { USER_ROLE } from '../user/user.constant';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
 
-const register = async (payload: TUser): Promise<any> => {
-
+const register = async (payload: TUser): Promise<TUser> => {
   // check if user already exists
   const isUserExistis = await User.findOne({ email: payload.email });
   if (isUserExistis) {
